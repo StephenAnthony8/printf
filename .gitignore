@@ -1,0 +1,25 @@
+#ignore main.c and _putchar.c files
+main.c
+_putchar.c
+
+#ignore swp files
+*.*.sw*
+
+#ignore .out files
+*.out
+
+#ignore pseudocode files
+pseudocode
+
+#ignore test.c files
+test.c
+test*.c
+
+#ignore alias commands file
+alias_comm*
+
+#ignore blueprint file
+blueprint
+
+#ignore main.c files
+main.c
