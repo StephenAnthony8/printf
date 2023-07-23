@@ -22,4 +22,4 @@ alias_comm*
 blueprint
 
 #ignore main.c files
-main.c
+main*.c
