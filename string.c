@@ -10,7 +10,7 @@
  * @precision: precision specification
  * Return: Number of chars printed
  */
-int prints_string(va_list args, char *buffer, int width,
+int prints_string(va_list args, int width,
 		int precision, int flags)
 {
 	int length = 0, i;
@@ -18,10 +18,6 @@ int prints_string(va_list args, char *buffer, int width,
 
 	if (str == NULL)
 		str = "(null)";
-	{
-		if (precision >= 6)
-			str = " ";
-	}
 
 	while (str[length] != '\0')
 		length++;

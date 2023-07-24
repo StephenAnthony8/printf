@@ -1,6 +1,4 @@
 #include "main.h"
-#include "string.c"
-#include "sci.c"
 #include <stdarg.h>
 
 void print_buffer(char buffer[], int *bi);
@@ -13,8 +11,8 @@ void print_buffer(char buffer[], int *bi);
 
 int _printf(const char *format, ...)
 {
-	int i = 0, bc = 0, bi = 0, len = 0;
-	int flags = width = 0, precision = -1, size;
+	int i = 0, bi = 0, len = 0;
+	int flags = 0, width = 0, precision = -1;
 
 	va_list args;
 	char buffer[BUFF_SIZE];
@@ -37,21 +35,20 @@ int _printf(const char *format, ...)
 		else
 		{
 			print_buffer(buffer, &bi);
-			i++;
-			width = _width(format + i, args);
-			precision = _precision(format + i, args);
-			flags = _flags(format + i);
+			width = _width(format + i, &i, args);
+			precision = _precision(format + i, &i, args);
+			flags = _flags(format + i, &i);
 			switch (format[i])
 			{
 				case 'c':
 				{
-					char c = va_arg(args, int)
+					char c = va_arg(args, int);
 
 					buffer[bi++] = c;
 					break;
 				}
 				case 's':
-					len += prints_string(args, buffer + len, width, precision, flags);
+					len += prints_string(args, width, precision, flags);
 					break;
 				case 'd':
 				case 'i':

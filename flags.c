@@ -28,7 +28,7 @@ int _flags(const char *format, int *i)
 			break;
 	}
 
-i	*i = current_index - 1;
+	*i = current_index - 1;
 
 	return (flags);
 }

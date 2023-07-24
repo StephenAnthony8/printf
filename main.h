@@ -13,12 +13,23 @@
 #define F_HASH 8
 #define F_SPACE 16
 
+/* SIZE */
+#define S_LONG 2
+#define S_SHORT 1
+
 
 int _printf(const char *format, ...);
 void _write(char *str, int length);
+void _itoa(int num, char *str);
 int _strlen(const char *str);
-int _precision(const char *format, int *i, va_list args)
-int _width(const char *format, int *i, va_list args)
-int _flags(const char *format, int *i)
+void _strcpy(char *dest, const char *src);
+int _precision(const char *format, int *i, va_list args);
+int _width(const char *format, int *i, va_list args);
+int _flags(const char *format, int *i);
+int prints_character(const char *format, ...);
+int prints_int(const char *format, ...);
+int prints_string(va_list args, int width, int precision, int flags);
+void print_buffer(char buffer[], int *bi);
+int _size(const char *format, int *i);
 
 #endif /* MAIN_H */
