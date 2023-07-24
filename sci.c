@@ -1,5 +1,6 @@
 #include "main.h"
 #include <stdarg.h>
+
 /**
  * _strlen - checks the length of a string
  * @str: string
@@ -7,15 +8,16 @@
  */
 int _strlen(const char *str)
 {
-        int len = 0;
+	int len = 0;
 
-        while (str[len] != '\0')
-                len++;
-        return (len);
+	while (str[len] != '\0')
+		len++;
+	return (len);
 }
 /**
  * _strcpy - copies string to the output buffer
  * @src: string to copy
+ * @dest: string destination
  */
 void _strcpy(char *dest, const char *src)
 {
@@ -33,9 +35,10 @@ void _strcpy(char *dest, const char *src)
  * @num: int to be converted
  * @str: output string
  */
-void _itoa(int num, char *str) {
-	int i = 0;
-	int is_negative = 0;
+void _itoa(int num, char *str)
+{
+	int i = 0, rem, start, end, is_negative = 0;
+	char temp;
 
 	if (num == 0)
 	{
@@ -52,89 +55,114 @@ void _itoa(int num, char *str) {
 
 	while (num != 0)
 	{
-		int rem = num % 10;
+		rem = num % 10;
 		str[i++] = rem + '0';
 		num = num / 10;
 	}
-
-	if (is_negative)
+		if (is_negative)
 		str[i++] = '-';
 
 	str[i] = '\0';
+	start = 0;
+	end = i - 1;
 
-	int start = 0;
-	int end = i - 1;
 	while (start < end)
 	{
-		char temp = str[start];
+		temp = str[start];
 		str[start] = str[end];
 		str[end] = temp;
 		start++;
 		end--;
 	}
 }
-
-/** Prints char*/
 /**
- * prints_chars - prints a char
- * @specifier: list of args
- * @buffer: bufer array to print
+ * prints_character - prints a char
+ * @format: string to format
  * Return: Number of chars printed
  */
 int prints_character(const char *format, ...)
 {
 	va_list args;
-	va_start(args, format);
+	char buffer[BUFF_SIZE], c;
+	int bi = 0, i = 0, len;
 
-	char buffer[BUFF_SIZE];
-	char temp_str[BUFF_SIZE];
-	int bi = 0;
-	int i = 0;
-	
+	va_start(args, format);
 	while (format[i] != '\0')
 	{
-		if (format[i] != '%') {
-		buffer[bi++] = format[i];
-	}
-	else
-	{
-		i++;
-
-		switch (format[i])
+		if (format[i] != '%')
 		{
-			case 'c':
+			buffer[bi++] = format[i];
+		}
+		else
+		{
+			i++;
+			switch (format[i])
 			{
-				char c = va_arg(args, int);
-				buffer[bi++] = c;
-				i++;
-				break;
+				case 'c':
+				{
+					c = va_arg(args, int);
+					buffer[bi++] = c;
+					break;
+				}
+				case 's':
+				{
+					const char *str = va_arg(args, const char *);
+
+					len = _strlen(str);
+					_strcpy(&buffer[bi], str);
+					bi += len;
+					break;
+				}
+				case '%':
+				{
+					buffer[bi++] = '%';
+					break;
+				}
+				default:
+					i++;
+					break;
 			}
-			case 's':
+		}
+	}
+	va_end(args);
+	buffer[bi] = '\0';
+	return (bi);
+}
+
+/**
+ * prints_int - prints an integer
+ * @format: string to format
+ * Return: integers printed
+ */
+int prints_int(const char *format, ...)
+{
+	char buffer[BUFF_SIZE], temp_str[BUFF_SIZE];
+	int num, len, bi = 0, i;
+	va_list args;
+
+	va_start(args, format);
+
+	while (format[i] != '\0')
+	{
+		if (format[i] != '%')
+		{
+			buffer[bi++] = format[i];
+		}
+		else
+		{
+			i++;
+			switch (format[i])
 			{
-				const char *str = va_arg(args, const char *);
-				int len = _strlen(str);   
-				_strcpy(&buffer[bi], str);
-				bi += len;
-				i++;
-				break;
-			}
-			case '%':
-			{
-				buffer[bi++] = '%';
-				i++;
-				break;
-			}
-			case 'd':
-			case 'i':
-			{
-				int num = va_arg(args, int);
-				_itoa(num, temp_str);
-				int len = _strlen(temp_str);
-				_strcpy(&buffer[bi], temp_str);
-				bi += len;
-				i++;
-				break;
-                	}
+
+				case 'd':
+				case 'i':
+					num = va_arg(args, int);
+					_itoa(num, temp_str);
+					len = _strlen(temp_str);
+					_strcpy(&buffer[bi], temp_str);
+					bi += len;
+					i++;
+					break;
 			default:
 				i++;
 				break;
@@ -143,32 +171,6 @@ int prints_character(const char *format, ...)
 	}
 
 	va_end(args);
-
 	buffer[bi] = '\0';
-
-	return bi;
-}
-
-
-/**prints string*/
-/**
- * prints_string  - prints a string
- * @specifier: list of args
- * @buffer: buffer array to handle print
- * REturn: Number of chars printed
- */
-int prints_string(va_list specifier, char *buffer, int flags, int width, int precision, int size)
-{
-	int length = 0;
-	char *str = va_arg(specifier, char *);
-
-	if (str == NULL)
-	{
-		return(-1);
-	}
-	while(str[length] != '\0')
-		length++;
-
-	return(write(1, str, length));
-
+	return (bi);
 }

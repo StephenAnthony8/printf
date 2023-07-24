@@ -5,7 +5,7 @@
  * @str: converted string
  * @length: number of bytes to print out
  */
-void _outp(char *str, int length) /* length = sizeof(char) * str length */
+void _outp(char *str, int length)
 {
-	write(1, str, length);
+	return (write(1, str, length);
 }

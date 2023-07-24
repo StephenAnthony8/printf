@@ -17,4 +17,8 @@
 int _printf(const char *format, ...);
 void _write(char *str, int length);
 int _strlen(const char *str);
+int _precision(const char *format, int *i, va_list args)
+int _width(const char *format, int *i, va_list args)
+int _flags(const char *format, int *i)
+
 #endif /* MAIN_H */
