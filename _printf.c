@@ -1,6 +1,8 @@
 #include "main.h"
 #include <stdarg.h>
 
+void print_buffer(char buffer[], int *bi);
+
 /**
  * _printf - print function
  * @format: format
@@ -10,6 +12,7 @@
 int _printf(const char *format, ...)
 {
 	int i, bc = 0, bi = 0, len;
+	int flags, width, precision, size;
 
 	va_list args;
 	char buffer[BUFF_SIZE];
@@ -22,16 +25,12 @@ int _printf(const char *format, ...)
 		{
 			buffer[bi++] = format[i];
 			if (bi == BUFF_SIZE)
-				print_buffer(buffer, bi);
+				print_buffer(buffer, &bi);
 			len++;
 		}
 		else
 		{
-			print_buffer(buffer, bi);
-			flags = func_flags(format, &i);
-			width = func_width(format, &i, args);
-			precision = func_precision(format, &i, args);
-			size = func_size(format, &i);
+			print_buffer(buffer, &bi);
 			i++;
 
 		}
@@ -41,15 +40,15 @@ int _printf(const char *format, ...)
 
 	return (len);
 }
-
 /**
- * print_buffer - prints contents of the buffer
- * @buffer: arrays of chars
- * @bi: length of the buffer
+ * print_buffer - Prints the contents of the buffer if it exist
+ * @buffer: Array of chars
+ * @buff_ind: Index at which to add next char, represents the length.
  */
-void print_buffer(char *buffer, int bi)
+void print_buffer(char buffer[], int *bi)
 {
-	if (bi > 0)
+	if (*bi > 0)
 		write(1, &buffer[0], *bi);
+
 	*bi = 0;
 }

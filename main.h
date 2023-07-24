@@ -16,5 +16,5 @@
 
 int _printf(const char *format, ...);
 void _write(char *str, int length);
-int _strlen(char *s);
+int _strlen(const char *str);
 #endif /* MAIN_H */

@@ -2,7 +2,7 @@
 #include <stdarg.h>
 /**
  * _strlen - checks the length of a string
- * @s: string
+ * @str: string
  * Return: returns the string length
  */
 int _strlen(const char *str)
@@ -17,7 +17,8 @@ int _strlen(const char *str)
  * _strcpy - copies string to the output buffer
  * @src: string to copy
  */
-void _strcpy(char *dest, const char *src) {
+void _strcpy(char *dest, const char *src)
+{
 	int i = 0;
 
 	while (src[i] != '\0')
@@ -27,8 +28,6 @@ void _strcpy(char *dest, const char *src) {
 	}
 	dest[i] = '\0';
 }
-}
-
 /**
  * _itoa - converts an integer to a string
  * @num: int to be converted
@@ -82,13 +81,16 @@ void _itoa(int num, char *str) {
  * @buffer: bufer array to print
  * Return: Number of chars printed
  */
-int prints_character(va_list specifier, char *buffer)
+int prints_character(const char *format, ...)
 {
-	char buffer[BUFFER_SIZE];
-	char temp_str[BUFFER_SIZE];
+	va_list args;
+	va_start(args, format);
+
+	char buffer[BUFF_SIZE];
+	char temp_str[BUFF_SIZE];
 	int bi = 0;
 	int i = 0;
-
+	
 	while (format[i] != '\0')
 	{
 		if (format[i] != '%') {
@@ -162,22 +164,11 @@ int prints_string(va_list specifier, char *buffer, int flags, int width, int pre
 
 	if (str == NULL)
 	{
-		return(NULL);
+		return(-1);
 	}
 	while(str[length] != '\0')
 		length++;
 
 	return(write(1, str, length));
 
-}
-/** prints % */
-/**
- * print_percent - prints a % sign
- * @specifier: list of arguments
- * @buffer: buffer array to handle print
- * Return: number of chars to be printed
- */
-int prints_sign(va_list specifier, char *buffer, int flags, int width, int precision, int size)
-{
-	return(write(1, %%, 1));
 }
