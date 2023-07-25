@@ -90,34 +90,26 @@ int prints_character(const char *format, ...)
 	while (format[i] != '\0')
 	{
 		if (format[i] != '%')
-		{
 			buffer[bi++] = format[i];
-		}
 		else
 		{
 			i++;
 			switch (format[i])
 			{
 				case 'c':
-				{
 					c = va_arg(args, int);
 					buffer[bi++] = c;
 					break;
-				}
 				case 's':
-				{
 					const char *str = va_arg(args, const char *);
 
 					len = _strlen(str);
 					_strcpy(&buffer[bi], str);
 					bi += len;
 					break;
-				}
 				case '%':
-				{
 					buffer[bi++] = '%';
 					break;
-				}
 				default:
 					i++;
 					break;
@@ -154,8 +146,7 @@ int prints_int(const char *format, ...)
 			switch (format[i])
 			{
 
-				case 'd':
-				case 'i':
+				case 'd':case 'i':
 					num = va_arg(args, int);
 					_itoa(num, temp_str);
 					len = _strlen(temp_str);

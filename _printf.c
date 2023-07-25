@@ -41,18 +41,22 @@ int _printf(const char *format, ...)
 			switch (format[i])
 			{
 				case 'c':
-				{
 					char c = va_arg(args, int);
 
 					buffer[bi++] = c;
 					break;
-				}
 				case 's':
 					len += prints_string(args, width, precision, flags);
 					break;
+<<<<<<< HEAD
 				case 'd':
 				case 'i':
 					len += prints_int(format, args, buffer + len, width, precision, flags);
+=======
+				case 'd':case 'i':
+					len += prints_int(format + i, args, buffer + len,
+								width, precision, flags);
+>>>>>>> refs/remotes/origin/printf
 					break;
 				default:
 					buffer[bi++] = '%';
