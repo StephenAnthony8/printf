@@ -49,7 +49,7 @@ int *arr_num(unsigned int long n, unsigned int long base)
  */
 char *int_conv(int long value)
 {
-	int len i, j, *iarr;
+	int len, i, j, *iarr;
 	char *charr;
 	long int neg;
 
