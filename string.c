@@ -4,7 +4,6 @@
 /**
  * prints_string  - prints a string
  * @args: list of args
- * @buffer: buffer array to handle print
  * @flags: calculates active flags
  * @width: gets width
  * @precision: precision specification
