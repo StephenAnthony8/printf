@@ -25,11 +25,7 @@ int _printf(const char *format, ...)
 		if (format[i] != '%')
 		{
 			buffer[bi++] = format[i];
-			if (format[i + 1] == '%' == format[i] == '%')
-			{
-				buffer[bi++] = '%';
-				i++;
-			}
+	
 			if (bi == BUFF_SIZE)
 			{
 				print_buffer(buffer, &bi);
@@ -50,6 +46,9 @@ int _printf(const char *format, ...)
 					break;
 				case 's':
 					len += prints_string(args, width, precision, flags);
+					break;
+				case '%':
+					buffer[bi++] = '%';
 					break;
 				case 'd':
 				case 'i':
