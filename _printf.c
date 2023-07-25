@@ -25,7 +25,7 @@ int _printf(const char *format, ...)
 		if (format[i] != '%')
 		{
 			buffer[bi++] = format[i];
-			if (format[i + 1] == '%')
+			if (format[i + 1] == '%' == format[i] == '%')
 			{
 				buffer[bi++] = '%';
 				i++;
