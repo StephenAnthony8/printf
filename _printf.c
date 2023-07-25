@@ -35,8 +35,8 @@ int _printf(const char *format, ...)
 		else
 		{
 			print_buffer(buffer, &bi);
-			width = _width(format + i, &i, args);
-			precision = _precision(format + i, &i, args);
+			width = _width(format, &i, args);
+			precision = _precision(format, &i, args);
 			flags = _flags(format + i, &i);
 			switch (format[i])
 			{
@@ -52,7 +52,7 @@ int _printf(const char *format, ...)
 					break;
 				case 'd':
 				case 'i':
-					len += prints_int(format + i, args, buffer + len, width, precision, flags);
+					len += prints_int(format, args, buffer + len, width, precision, flags);
 					break;
 				default:
 					buffer[bi++] = '%';

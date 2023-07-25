@@ -137,7 +137,7 @@ int prints_character(const char *format, ...)
 int prints_int(const char *format, ...)
 {
 	char buffer[BUFF_SIZE], temp_str[BUFF_SIZE];
-	int num, len, bi = 0, i;
+	int num, len, bi = 0, i = 0;
 	va_list args;
 
 	va_start(args, format);
