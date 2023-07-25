@@ -10,16 +10,16 @@
  * Return: Number of chars printed
  */
 int prints_string(va_list args, int width,
-		int precision, int flags)
+		int precision, int flags, char *buffer)
 {
-	int length = 0, i;
+	int length = 0, i, j;
 	char *str = va_arg(args, char *);
+
 
 	if (str == NULL)
 		str = "(null)";
 
-	while (str[length] != '\0')
-		length++;
+	length = _strlen(str);
 
 	if (precision >= 0 && precision < length)
 		length = precision;
@@ -28,20 +28,29 @@ int prints_string(va_list args, int width,
 	{
 		if (flags & F_MINUS) /*left justified*/
 		{
-			write(1, &str[0], length);
-			for (i = width - length; i > 0; i--)
-				write(1, " ", 1);
+			for (i = 0; i < width; i++)
+			{
+				if (length > i)
+					buffer[i] = str[i];
+				else
+					buffer[i] = ' ';
+			}
 			return (width);
 		}
 		else /*right justified*/
 		{
-			for (i = width - length; i > 0; i--)
-				write(1, " ", 1);
-			write(1, &str[0], length);
+			for (i = j = 0; i < width; i++)
+			{
+				if (i < width - length)
+					buffer[i] = ' ';
+				else
+					buffer[i] = str[j];
+			}
 			return (width);
 		}
 	}
-
-	return (write(1, str, length));
+	else
+		_strcpy(buffer, str);
+	return (length);
 
 }

@@ -28,7 +28,7 @@ void _strcpy(char *dest, const char *src)
 		dest[i] = src[i];
 		i++;
 	}
-	dest[i] = '\0';
+	dest = '\0';
 }
 /**
  * _itoa - converts an integer to a string

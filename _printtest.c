@@ -1,5 +1,6 @@
 #include "main.h"
 #include <stdarg.h>
+#include <unistd.h>
 
 void print_buffer(char buffer[], int *bi);
 
@@ -12,9 +13,8 @@ void print_buffer(char buffer[], int *bi);
 int _printf(const char *format, ...)
 {
 	int i = 0, bi = 0, len = 0;
-	int flags = 0, width = 0, precision = -1;
 	va_list args;
-char buffer[BUFF_SIZE], c;
+	char buffer[BUFF_SIZE];
 
 	va_start(args, format);
 
@@ -32,34 +32,14 @@ char buffer[BUFF_SIZE], c;
 				print_buffer(buffer, &bi);
 				len += bi;
 			}
+
 		}
 		else
 		{
-			/* _write(buffer, bi); */ 
-			width = _width(format, &i, args);
-			precision = _precision(format, &i, args);
-			flags = _flags(format + i, &i);
-			i++;
-			switch (format[i])
+			switch (format[i++])
 			{
-				case '%':
-					buffer[bi++] = '%';
-					bi++;
-					i++;
-					break;
-				case 'c':
-					c = va_arg(args, int);
-					buffer[bi++] = c;
-					i++;
-					bi++;
-					break;
 				case 's':
-					bi += prints_string(args, width, precision, flags, &buffer[bi]);
-					break;
-				case 'l':case 'u' :case 'd': case 'i':
-				case 'x':case 'o': case 'p': case 'X':
-					bi += prints_int(format, args, buffer + len, width, precision, flags);
-					i++;
+					bi += print_reverse(args, va_arg(args, char *), &buffer[bi]);
 					break;
 				default:
 					buffer[bi++] = '%';
