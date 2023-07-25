@@ -84,6 +84,7 @@ int prints_character(const char *format, ...)
 {
 	va_list args;
 	char buffer[BUFF_SIZE], c;
+	const char *str;
 	int bi = 0, i = 0, len;
 
 	va_start(args, format);
@@ -101,8 +102,7 @@ int prints_character(const char *format, ...)
 					buffer[bi++] = c;
 					break;
 				case 's':
-					const char *str = va_arg(args, const char *);
-
+					str = va_arg(args, const char *);
 					len = _strlen(str);
 					_strcpy(&buffer[bi], str);
 					bi += len;

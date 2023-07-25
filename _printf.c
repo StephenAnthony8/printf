@@ -13,9 +13,8 @@ int _printf(const char *format, ...)
 {
 	int i = 0, bi = 0, len = 0;
 	int flags = 0, width = 0, precision = -1;
-
 	va_list args;
-	char buffer[BUFF_SIZE];
+	char buffer[BUFF_SIZE], c;
 
 	va_start(args, format);
 
@@ -26,6 +25,11 @@ int _printf(const char *format, ...)
 		if (format[i] != '%')
 		{
 			buffer[bi++] = format[i];
+			if (format[i + 1] == '%')
+			{
+				buffer[bi++] = '%';
+				i++;
+			}
 			if (bi == BUFF_SIZE)
 			{
 				print_buffer(buffer, &bi);
@@ -41,22 +45,15 @@ int _printf(const char *format, ...)
 			switch (format[i])
 			{
 				case 'c':
-					char c = va_arg(args, int);
-
+					c = va_arg(args, int);
 					buffer[bi++] = c;
 					break;
 				case 's':
 					len += prints_string(args, width, precision, flags);
 					break;
-<<<<<<< HEAD
 				case 'd':
 				case 'i':
 					len += prints_int(format, args, buffer + len, width, precision, flags);
-=======
-				case 'd':case 'i':
-					len += prints_int(format + i, args, buffer + len,
-								width, precision, flags);
->>>>>>> refs/remotes/origin/printf
 					break;
 				default:
 					buffer[bi++] = '%';
