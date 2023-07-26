@@ -39,7 +39,6 @@ int _printf(const char *format, ...)
 					break;
 				case 'c':
 					buffer[bi++] = va_arg(args, int);
-					bi++;
 					break;
 				case 's': case 'r': case 'R': case 'S':
 					bi += prints_string(args, format[i], &buffer[bi]);
