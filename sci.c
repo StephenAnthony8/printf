@@ -31,10 +31,10 @@ void _strcpy(char *dest, const char *src)
 	dest = '\0';
 }
 /**
- * x_hex - converts a string to a hex rep
- * @num: length of input string
- * @str: pointer to input string
- * Return: pointer to the new string
+ * x_hex - attaches the x on a pointer
+ * @num: int to be converted
+ * @str: output string
+ * Return: 0x pointer
  */
 char *x_hex(int num, char *str)
 {

@@ -48,7 +48,8 @@ int _printf(const char *format, ...)
 					bi += prints_xint(args, &format[i], &buffer[bi]);
 					i++;
 					break;
-				case 'd':case 'i':case 'o':case 'u':case 'p':case 'x':case 'X':case 'b':
+				case 'd': case 'i':case 'o':case 'u':
+				case 'p': case 'x': case 'X':case 'b':
 					bi += prints_int(args, format[i], &buffer[bi]);
 					break;
 				default:

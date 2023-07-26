@@ -83,33 +83,22 @@ char *int_conv(int long value)
  * unint_conv - converts any unsigned int type into a string
  * @value: signed integer to convert
  * @specifier: conversion specifier
- * @charr: input
  * Return: number string
  */
-char *unint_conv(unsigned int long value, char specifier, char *charr)
+char *unint_conv(unsigned int long value, char specifier)
 {
 	int len = 1, i = 0, j = 0, *iarr, hex, base;
+	char *charr;
 
-	switch (specifier)
-	{
-		case 'x': case 'X': case 'p':
-			base = 16;
-			break;
-		case 'u':
-			base = 10;
-			break;
-		case 'o':
-			base = 8;
-			break;
-		case 'b':
-			base = 2;
-			break;
-	}
+	base = b_select(specifier);
+
 	len += size(value, base);
 	charr = malloc(sizeof(char) * (len));
 	if (!charr)
+	{
 		free(charr);
 		return (NULL);
+	}
 	iarr = arr_num(value, base);
 	for (; i < len - 1; i++, j++)
 	{
