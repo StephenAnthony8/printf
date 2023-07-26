@@ -31,49 +31,29 @@ void _strcpy(char *dest, const char *src)
 	dest = '\0';
 }
 /**
- * _itoa - converts an integer to a string
- * @num: int to be converted
- * @str: output string
+ * x_hex - converts a string to a hex rep
+ * @num: length of input string
+ * @str: pointer to input string
+ * Return: pointer to the new string
  */
-void _itoa(int num, char *str)
+char *x_hex(int num, char *str)
 {
-	int i = 0, rem, start, end, is_negative = 0;
-	char temp;
+	char *x_arr;
 
-	if (num == 0)
+	x_arr = malloc(sizeof(char) * (num + 2));
+	if (!x_arr)
 	{
-		str[i++] = '0';
-		str[i] = '\0';
-		return;
+		free(x_arr);
+		return (NULL);
 	}
 
-	if (num < 0)
-	{
-		is_negative = 1;
-		num = -num;
-	}
+	x_arr[0] = '0';
+	x_arr[1] = 'x';
+	_strcpy(&x_arr[2], str);
+	free(str);
+	return (x_arr);
 
-	while (num != 0)
-	{
-		rem = num % 10;
-		str[i++] = rem + '0';
-		num = num / 10;
-	}
-		if (is_negative)
-		str[i++] = '-';
 
-	str[i] = '\0';
-	start = 0;
-	end = i - 1;
-
-	while (start < end)
-	{
-		temp = str[start];
-		str[start] = str[end];
-		str[end] = temp;
-		start++;
-		end--;
-	}
 }
 /**
  * prints_character - prints a char
