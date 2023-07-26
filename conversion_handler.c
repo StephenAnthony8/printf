@@ -61,7 +61,7 @@ char *int_conv(int long value)
 	len = size(value, 10);
 	if (neg < 0)
 		len++;
-	charr = malloc(sizeof(char) * (len +1));
+	charr = malloc(sizeof(char) * (len + 1));
 	if (!charr)
 	{
 		free(charr);
@@ -83,12 +83,12 @@ char *int_conv(int long value)
  * unint_conv - converts any unsigned int type into a string
  * @value: signed integer to convert
  * @specifier: conversion specifier
+ * @charr: input
  * Return: number string
  */
-char *unint_conv(unsigned int long value, char specifier)
+char *unint_conv(unsigned int long value, char specifier, char *charr)
 {
 	int len = 1, i = 0, j = 0, *iarr, hex, base;
-	char *charr;
 
 	switch (specifier)
 	{
@@ -100,16 +100,18 @@ char *unint_conv(unsigned int long value, char specifier)
 			break;
 		case 'o':
 			base = 8;
+			break;
+		case 'b':
+			base = 2;
+			break;
 	}
 	len += size(value, base);
 	charr = malloc(sizeof(char) * (len));
 	if (!charr)
-	{
 		free(charr);
 		return (NULL);
-	}
 	iarr = arr_num(value, base);
-	for (; i < len -1; i++, j++)
+	for (; i < len - 1; i++, j++)
 	{
 		if (iarr[j] > 9)
 		{
@@ -136,6 +138,7 @@ char *unint_conv(unsigned int long value, char specifier)
 int prints_int(va_list args, char specifier, char *buffer)
 {
 	int num, len;
+	unsigned int unum;
 	unsigned long int ptr;
 	char *chint;
 
@@ -145,9 +148,9 @@ int prints_int(va_list args, char specifier, char *buffer)
 			num = va_arg(args, int);
 			chint = int_conv(num);
 			break;
-		case 'o': case 'u': case 'x': case 'X':
-			num = va_arg(args, unsigned int);
-			chint = unint_conv(num, specifier);
+		case 'b': case 'o': case 'u': case 'x': case 'X':
+			unum = va_arg(args, unsigned int);
+			chint = unint_conv(unum, specifier);
 			break;
 
 		case 'p':
@@ -155,8 +158,10 @@ int prints_int(va_list args, char specifier, char *buffer)
 			chint = unint_conv(ptr, specifier);
 			break;
 	}
-	_strcpy(buffer, chint);
 	len = _strlen(chint);
+	if (specifier == 'p')
+		chint = x_hex(len, chint);
+	_strcpy(buffer, chint);
 	free(chint);
 
 	return (len);
