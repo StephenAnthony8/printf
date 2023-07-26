@@ -5,9 +5,10 @@
 /**
  * print_rot13string - Print a string in rot13.
  * @str: pointer to string parameters
+ * @buffer: buffer array
  * Return: Numbers of chars printed
  */
-int print_rot13string(char *str, char buffer[])
+int print_rot13string(char *str, char *buffer)
 {
 	char x;
 	int count = 0, bi = 0;
