@@ -24,11 +24,7 @@ int _printf(const char *format, ...)
 	for (; format && format[i] != '\0'; i++)
 	{
 		if (format[i] != '%')
-		{
-			buffer[bi++] = format[i];
-			if (bi == BUFF_SIZE)
-				_write(buffer, bi);
-		}
+			buffer[bi++] = format[i];	
 		else
 		{
 			i++;
@@ -59,6 +55,8 @@ int _printf(const char *format, ...)
 
 			}
 		}
+		if (bi == BUFF_SIZE)
+			_write(buffer, bi);
 	}
 	_write(buffer, bi);
 	va_end(args);

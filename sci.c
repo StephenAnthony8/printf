@@ -40,7 +40,7 @@ char *x_hex(int num, char *str)
 {
 	char *x_arr;
 
-	x_arr = malloc(sizeof(char) * (num + 2));
+	x_arr = malloc(sizeof(char) * (num + 3));
 	if (!x_arr)
 	{
 		free(x_arr);

@@ -152,6 +152,7 @@ int prints_int(va_list args, char specifier, char *buffer)
 	len = _strlen(chint);
 	if (specifier == 'p')
 		chint = x_hex(len, chint);
+	len = _strlen(chint);
 	_strcpy(buffer, chint);
 	free(chint);
 
