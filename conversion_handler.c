@@ -59,7 +59,7 @@ char *int_conv(int long value)
 	if (value < 0)
 		value = -value;
 	len = size(value, 10);
-	if (neg < 0)
+	if (neg <= 0)
 		len++;
 	charr = malloc(sizeof(char) * (len + 1));
 	if (!charr)
@@ -92,15 +92,17 @@ char *unint_conv(unsigned int long value, char specifier)
 
 	base = b_select(specifier);
 
-	len += size(value, base);
-	charr = malloc(sizeof(char) * (len));
+	len = size(value, base);
+	if (!value)
+		len++;
+	charr = malloc(sizeof(char) * (len + 1));
 	if (!charr)
 	{
 		free(charr);
 		return (NULL);
 	}
 	iarr = arr_num(value, base);
-	for (; i < len - 1; i++, j++)
+	for (; i < len; i++, j++)
 	{
 		if (iarr[j] > 9)
 		{
