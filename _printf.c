@@ -17,14 +17,19 @@ int _printf(const char *format, ...)
 	char buffer[BUFF_SIZE];
 
 	va_start(args, format);
-
 	if (format == NULL)
 		return (-1);
 
 	for (; format && format[i] != '\0'; i++)
 	{
+		if (bi == BUFF_SIZE - 1)
+		{
+			buffer[bi] = '\0';
+			break;
+		}
+
 		if (format[i] != '%')
-			buffer[bi++] = format[i];	
+			buffer[bi++] = format[i];
 		else
 		{
 			i++;
@@ -58,6 +63,7 @@ int _printf(const char *format, ...)
 		if (bi == BUFF_SIZE)
 			_write(buffer, bi);
 	}
+	buffer[bi] = '\0';
 	_write(buffer, bi);
 	va_end(args);
 	return (reset_buffer(buffer, bi));
