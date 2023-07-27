@@ -49,8 +49,10 @@ int _printf(const char *format, ...)
 					bi += prints_int(args, format[i], &buffer[bi]);
 					break;
 				default:
-					return(reset_buffer(buffer, bi));
-
+					buffer[bi] = '%';
+					buffer[++bi] = format[i];
+					bi++;
+					break;
 
 			}
 		}
