@@ -44,7 +44,7 @@ int x_string(char *str, char *buffer);
 void _strcpy(char *dest, const char *src);
 int print_reverse(char *str, char *buffer);
 int print_rot13string(char *str, char *buffer);
-int prints_string(va_list args,char flag, char *buffer);
+int prints_string(va_list args, char flag, char *buffer);
 
 /* printf functions */
 int reset_buffer(char *buffer, int bi);
