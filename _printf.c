@@ -14,20 +14,16 @@ int _printf(const char *format, ...)
 	int i = 0, bi = 0;
 	/* int flags = 0, width = 0, precision = -1; */
 	va_list args;
-	char buffer[BUFF_SIZE];
+	char *buffer;
 
+	buffer = malloc(BUFF_SIZE);
+	if (!buffer)
+		return (-1);
 	va_start(args, format);
 	if (format == NULL)
 		return (-1);
-
 	for (; format && format[i] != '\0'; i++)
 	{
-		if (bi == BUFF_SIZE - 1)
-		{
-			buffer[bi] = '\0';
-			break;
-		}
-
 		if (format[i] != '%')
 			buffer[bi++] = format[i];
 		else
@@ -63,7 +59,6 @@ int _printf(const char *format, ...)
 		if (bi == BUFF_SIZE)
 			_write(buffer, bi);
 	}
-	buffer[bi] = '\0';
 	_write(buffer, bi);
 	va_end(args);
 	return (reset_buffer(buffer, bi));
@@ -76,10 +71,6 @@ int _printf(const char *format, ...)
  */
 int reset_buffer(char *buffer, int bi)
 {
-	while (*buffer != '\0')
-	{
-		*buffer = '\0';
-		buffer++;
-	}
+	free(buffer);
 	return (bi);
 }
