@@ -52,30 +52,27 @@ int x_string(char *str, char *buffer)
 			h_count += (3 + size(str[i], 16));
 			tick++;
 		}
-	if (tick == _strlen(str))
-		len = h_count;
-	else
-		len = h_count + (i - 1);
+	len = (tick == _strlen(str)) ? h_count : (h_count + (i - 1));
+	len = (tick == 0) ? _strlen(str) : len;
 	chex = malloc(sizeof(char) * len + 1);
 	if (!chex)
-	{
-		free(chex);
 		return (0);
-	}
-	for (i = j = 0; i < len; i++, j++)
+	for (i = j = 0; i < len && str[j] != '\0'; i++, j++)
 	{
 		if (str[j] <= 31 || str[j] >= 127)
 		{
 			chex[i] = '\\';
-			chex[i + 1] = '0';
-			chex[i + 2] = 'x';
-			i += 3;
+			chex[i + 1] = 'x';
+			if (str[j] < 16)
+				chex[i + 2] = '0';
+			i += (str[j] < 15) ? 3 : 2;
 			iex = unint_conv(str[j], 'X');
 			_strcpy(&chex[i], iex);
+			i += (str[j] < 15) ? 0 : 1;
 			free(iex);
+			continue;
 		}
-		else
-			chex[i] = str[j];
+		chex[i] = str[j];
 	}
 	_strcpy(buffer, chex);
 	len = _strlen(chex);
