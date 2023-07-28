@@ -22,9 +22,9 @@ int prints_string(va_list args, char flag, char *buffer)
 		return (len);
 	}
 	len = _strlen(str);
-	if (flag == 'r')
+	if (flag == 'R')
 		len = print_rot13string(str, buffer);
-	else if (flag == 'R')
+	else if (flag == 'r')
 		len = print_reverse(str, buffer);
 	else if (flag == 'S')
 		len = x_string(str, buffer);
