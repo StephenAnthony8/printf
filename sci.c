@@ -56,52 +56,6 @@ char *x_hex(int num, char *str)
 
 }
 /**
- * prints_character - prints a char
- * @format: string to format
- * Return: Number of chars printed
- */
-int prints_character(const char *format, ...)
-{
-	va_list args;
-	char buffer[BUFF_SIZE], c;
-	const char *str;
-	int bi = 0, i = 0, len;
-
-	va_start(args, format);
-	while (format[i] != '\0')
-	{
-		if (format[i] != '%')
-			buffer[bi++] = format[i];
-		else
-		{
-			i++;
-			switch (format[i])
-			{
-				case 'c':
-					c = va_arg(args, int);
-					buffer[bi++] = c;
-					break;
-				case 's':
-					str = va_arg(args, const char *);
-					len = _strlen(str);
-					_strcpy(&buffer[bi], str);
-					bi += len;
-					break;
-				case '%':
-					buffer[bi++] = '%';
-					break;
-				default:
-					i++;
-					break;
-			}
-		}
-	}
-	va_end(args);
-	buffer[bi] = '\0';
-	return (bi);
-}
-
-/**
  * prints_xint - prints an integer
  * @args: number value being converted
  * @specifier: conversion flag to be used
