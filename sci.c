@@ -28,7 +28,7 @@ void _strcpy(char *dest, const char *src)
 		dest[i] = src[i];
 		i++;
 	}
-	dest = '\0';
+	dest[i] = '\0';
 }
 /**
  * x_hex - attaches the x on a pointer
@@ -52,7 +52,6 @@ char *x_hex(int num, char *str)
 	_strcpy(&x_arr[2], str);
 	free(str);
 	return (x_arr);
-
 
 }
 /**
