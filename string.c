@@ -42,14 +42,20 @@ int prints_string(va_list args, char flag, char *buffer)
  */
 int x_string(char *str, char *buffer)
 {
-	int i, j, len, h_count;
+	int i, j, len = 0, h_count, tick;
 	char *chex;
 	char *iex;
 
-	for (h_count = i = 0; str[i]; i++)
+	for (tick = h_count = i = 0; str[i]; i++)
 		if (str[i] <= 31 || str[i] >= 127)
+		{
 			h_count += (3 + size(str[i], 16));
-	len = h_count + i;
+			tick++;
+		}
+	if (tick == _strlen(str))
+		len = h_count;
+	else
+		len = h_count + (i - 1);
 	chex = malloc(sizeof(char) * len + 1);
 	if (!chex)
 	{
@@ -63,7 +69,7 @@ int x_string(char *str, char *buffer)
 			chex[i] = '\\';
 			chex[i + 1] = '0';
 			chex[i + 2] = 'x';
-			i += 2;
+			i += 3;
 			iex = unint_conv(str[j], 'X');
 			_strcpy(&chex[i], iex);
 			free(iex);
