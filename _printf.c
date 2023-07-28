@@ -12,7 +12,6 @@ void print_buffer(char buffer[], int *bi);
 int _printf(const char *format, ...)
 {
 	int i = 0, bi = 0;
-	/* int flags = 0, width = 0, precision = -1; */
 	va_list args;
 	char *buffer;
 
